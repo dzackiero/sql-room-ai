@@ -56,7 +56,7 @@ export const AI_SETTINGS = {
         PROVIDER_DEFAULT_BASE_URLS[
           provider.name as keyof typeof PROVIDER_DEFAULT_BASE_URLS
         ],
-      apiKey: '',
+      apiKey: process.env.OPENAI_API_KEY,
       models: provider.models.map((model) => ({
         id: model,
         modelName: model,
