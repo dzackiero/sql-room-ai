@@ -128,11 +128,11 @@ export const createRoomStoreWithToken = (mdToken: string, apiKeys: ApiKeys = {})
         // Local storage key
         name: "ai-example-app-state-storage",
         // Helper to extract and merge slice configs
+        // Note: aiSettings is excluded from persistence since API keys come from the login form
         ...createPersistHelpers({
           room: BaseRoomConfig,
           layout: LayoutConfig,
           ai: AiSliceConfig,
-          aiSettings: AiSettingsSliceConfig,
           sqlEditor: SqlEditorSliceConfig,
         }),
       }

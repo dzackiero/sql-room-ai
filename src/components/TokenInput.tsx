@@ -147,6 +147,25 @@ export const TokenInput = ({ onSubmit }: TokenInputProps) => {
           <Button type="submit" className="w-full">
             Continue
           </Button>
+
+          <Button
+            type="button"
+            variant="ghost"
+            className="w-full text-xs"
+            onClick={() => {
+              localStorage.removeItem("ai-example-app-state-storage");
+              localStorage.removeItem("md-token");
+              localStorage.removeItem("openai-api-key");
+              localStorage.removeItem("anthropic-api-key");
+              localStorage.removeItem("groq-api-key");
+              setMdToken("");
+              setOpenaiApiKey("");
+              setAnthropicApiKey("");
+              setGroqApiKey("");
+            }}
+          >
+            Reset all saved settings
+          </Button>
         </form>
       </div>
     </div>

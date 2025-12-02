@@ -24,7 +24,7 @@ export const LLM_MODELS = [
   },
   {
     name: "groq",
-    models: ["llama-3.3-70b-versatile", "llama-3.1-8b-instant", "mixtral-8x7b-32768", "gemma2-9b-it"],
+    models: ["openai/gpt-oss-120b", "openai/gpt-oss-20b", "groq/compound", "groq/compound-mini"],
   },
   // {
   //   name: 'google',
@@ -52,19 +52,20 @@ export type ApiKeys = {
   groq?: string;
 };
 
-export const createAiSettings = (apiKeys: ApiKeys = {}) => ({
-  providers: LLM_MODELS.reduce((acc: Record<string, any>, provider) => {
-    acc[provider.name] = {
-      baseUrl: PROVIDER_DEFAULT_BASE_URLS[provider.name as keyof typeof PROVIDER_DEFAULT_BASE_URLS],
-      apiKey: apiKeys[provider.name as keyof ApiKeys] || "",
-      models: provider.models.map((model) => ({
-        id: model,
-        modelName: model,
-      })),
-    };
-    return acc;
-  }, {}),
-}) satisfies Pick<AiSettingsSliceConfig, "providers">;
+export const createAiSettings = (apiKeys: ApiKeys = {}) =>
+  ({
+    providers: LLM_MODELS.reduce((acc: Record<string, any>, provider) => {
+      acc[provider.name] = {
+        baseUrl: PROVIDER_DEFAULT_BASE_URLS[provider.name as keyof typeof PROVIDER_DEFAULT_BASE_URLS],
+        apiKey: apiKeys[provider.name as keyof ApiKeys] || "",
+        models: provider.models.map((model) => ({
+          id: model,
+          modelName: model,
+        })),
+      };
+      return acc;
+    }, {}),
+  } satisfies Pick<AiSettingsSliceConfig, "providers">);
 
 // Default export for backward compatibility
 export const AI_SETTINGS = createAiSettings();
